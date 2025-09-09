@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".util.log.selectLog"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/logo"
+        />
+    <TextView
+        android:id="@+id/textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome To You!"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/textSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Log Means"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+
+        >
+
+        <ImageButton
+            android:id="@+id/imageDtLog"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/logmap"
+            android:scaleType="centerInside"
+            android:src="@mipmap/dtlog"
+
+            />
+
+        <ImageButton
+            android:id="@+id/imagePtLog"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/logmap"
+            android:scaleType="centerInside"
+            android:src="@mipmap/userlog"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textDtLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor Log "
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+
+            />
+        <TextView
+            android:id="@+id/PtLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patient Log "
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
