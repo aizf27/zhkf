@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:layout_margin="10dp"
     android:background="#F5F7FA">
 
    <!-- 顶部患者概览 -->
@@ -68,11 +69,13 @@
          <!-- 图表占位，可以用第三方图表库替换 -->
          <ImageView
              android:id="@+id/img_pie_placeholder"
-             android:layout_width="64dp"
+             android:layout_width="80dp"
              android:layout_height="64dp"
-             android:layout_marginTop="8dp"
+             android:layout_marginTop="2dp"
+
              android:contentDescription="pie chart placeholder"
-             android:src="@android:drawable/ic_menu_gallery" />
+             android:scaleType="fitXY"
+             android:src="@mipmap/to_be_processed"/>
       </LinearLayout>
    </LinearLayout>
 
@@ -81,6 +84,7 @@
        android:id="@+id/tv_key_patients_title"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_marginLeft="10dp"
        android:text="重点患者"
        android:textSize="16sp"
        android:textStyle="bold"
@@ -101,7 +105,7 @@
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent" />
 
-   <!-- 下方工具区 -->
+   <!-- 表格布局：下方工具区 -->
    <GridLayout
        android:id="@+id/tools_grid"
        android:layout_width="0dp"
@@ -124,10 +128,11 @@
           android:padding="8dp">
          <ImageButton
              android:id="@+id/btn_patient_manage"
-             android:layout_width="48dp"
-             android:layout_height="48dp"
+             android:layout_width="42dp"
+             android:layout_height="42dp"
              android:background="@null"
-             android:src="@android:drawable/ic_menu_manage"
+             android:scaleType="centerCrop"
+             android:src="@mipmap/icon_pt_management"
              android:contentDescription="患者管理" />
          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="患者管理" android:textSize="12sp"/>
       </LinearLayout>
@@ -141,10 +146,11 @@
           android:padding="8dp">
          <ImageButton
              android:id="@+id/btn_adjust_plan"
-             android:layout_width="48dp"
-             android:layout_height="48dp"
+             android:layout_width="42dp"
+             android:layout_height="42dp"
              android:background="@null"
-             android:src="@android:drawable/ic_menu_edit"
+             android:src="@mipmap/icon_plan_adjustment"
+             android:scaleType="centerCrop"
              android:contentDescription="方案调整" />
          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="方案调整" android:textSize="12sp"/>
       </LinearLayout>
@@ -158,10 +164,11 @@
           android:padding="8dp">
          <ImageButton
              android:id="@+id/btn_message_center"
-             android:layout_width="48dp"
-             android:layout_height="48dp"
+             android:layout_width="42dp"
+             android:layout_height="42dp"
              android:background="@null"
-             android:src="@android:drawable/ic_dialog_email"
+             android:scaleType="centerCrop"
+             android:src="@mipmap/icon_info_center"
              android:contentDescription="消息中心" />
          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="消息中心" android:textSize="12sp"/>
       </LinearLayout>
@@ -175,10 +182,11 @@
           android:padding="8dp">
          <ImageButton
              android:id="@+id/btn_search_filter"
-             android:layout_width="48dp"
-             android:layout_height="48dp"
+             android:layout_width="42dp"
+             android:layout_height="42dp"
              android:background="@null"
-             android:src="@android:drawable/ic_menu_search"
+             android:scaleType="centerCrop"
+             android:src="@mipmap/icon_search"
              android:contentDescription="筛选/搜索" />
          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="筛选/搜索" android:textSize="12sp"/>
       </LinearLayout>
