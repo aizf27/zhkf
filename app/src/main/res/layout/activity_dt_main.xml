@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/doctor_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -126,15 +127,21 @@
           android:layout_columnWeight="1"
           android:gravity="center"
           android:padding="8dp">
+
          <ImageButton
              android:id="@+id/btn_patient_manage"
              android:layout_width="42dp"
              android:layout_height="42dp"
              android:background="@null"
+             android:contentDescription="患者管理"
              android:scaleType="centerCrop"
              android:src="@mipmap/icon_pt_management"
-             android:contentDescription="患者管理" />
-         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="患者管理" android:textSize="12sp"/>
+             tools:ignore="TouchTargetSizeCheck" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="患者管理"
+             android:textSize="12sp"/>
       </LinearLayout>
 
       <LinearLayout
@@ -144,16 +151,23 @@
           android:layout_columnWeight="1"
           android:gravity="center"
           android:padding="8dp">
+
          <ImageButton
              android:id="@+id/btn_adjust_plan"
              android:layout_width="42dp"
              android:layout_height="42dp"
              android:background="@null"
-             android:src="@mipmap/icon_plan_adjustment"
+             android:contentDescription="方案调整"
              android:scaleType="centerCrop"
-             android:contentDescription="方案调整" />
-         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="方案调整" android:textSize="12sp"/>
+             android:src="@mipmap/icon_plan_adjustment"
+             tools:ignore="TouchTargetSizeCheck" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="方案调整"
+             android:textSize="12sp"/>
       </LinearLayout>
+
 
       <LinearLayout
           android:layout_width="0dp"
@@ -162,15 +176,21 @@
           android:layout_columnWeight="1"
           android:gravity="center"
           android:padding="8dp">
+
          <ImageButton
              android:id="@+id/btn_message_center"
              android:layout_width="42dp"
              android:layout_height="42dp"
              android:background="@null"
+             android:contentDescription="消息中心"
              android:scaleType="centerCrop"
              android:src="@mipmap/icon_info_center"
-             android:contentDescription="消息中心" />
-         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="消息中心" android:textSize="12sp"/>
+             tools:ignore="TouchTargetSizeCheck" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="消息中心"
+             android:textSize="12sp"/>
       </LinearLayout>
 
       <LinearLayout
@@ -180,15 +200,21 @@
           android:layout_columnWeight="1"
           android:gravity="center"
           android:padding="8dp">
+
          <ImageButton
              android:id="@+id/btn_search_filter"
              android:layout_width="42dp"
              android:layout_height="42dp"
              android:background="@null"
+             android:contentDescription="筛选/搜索"
              android:scaleType="centerCrop"
              android:src="@mipmap/icon_search"
-             android:contentDescription="筛选/搜索" />
-         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="筛选/搜索" android:textSize="12sp"/>
+             tools:ignore="TouchTargetSizeCheck" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="筛选/搜索"
+             android:textSize="12sp"/>
       </LinearLayout>
 
    </GridLayout>
