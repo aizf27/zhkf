@@ -12,13 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstProject" >
         <activity
+            android:name=".util.main.PtInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".util.main.PtMainActivity"
             android:exported="false" />
         <activity
             android:name=".util.main.DtMainActivity"
-            android:exported="false"
-            />
-
+            android:exported="false" />
         <activity
             android:name=".util.log.PtLog"
             android:exported="false" />

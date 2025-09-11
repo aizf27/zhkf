@@ -32,9 +32,9 @@ private ActivityDtMainBinding binding;
         binding.rvKeyPatients.setLayoutManager(new LinearLayoutManager(this));
 
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient("张三", "痉挛期", 60, "肌力↑", false));
-        patients.add(new Patient("李四", "恢复期", 80, "关节灵活", true));
-        patients.add(new Patient("王五", "训练期", 40, "平衡提升", false));
+        patients.add(new Patient(1,"张三", 34,"man","赵医生","脑瘫","痉挛期", 60, "肌力↑", false,"9.8"));
+        patients.add(new Patient(2, "李妹", 45, "woman", "赵医生","脑卒中", "恢复期", 75, "平衡能力改善", true, "9.5"));
+        patients.add(new Patient(3, "王五", 28, "man","赵医生", "脊髓损伤", "康复期", 85, "关节活动度改善", false, "8.22"));
 
         PatientAdapter adapter = new PatientAdapter(patients);
         binding.rvKeyPatients.setAdapter(adapter);
