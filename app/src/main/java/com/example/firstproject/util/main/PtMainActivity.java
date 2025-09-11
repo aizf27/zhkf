@@ -1,5 +1,6 @@
 package com.example.firstproject.util.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +23,13 @@ private ActivityPtMainBinding binding;
         binding = ActivityPtMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.btnViewInfo.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PtInfoActivity.class);
+            // 把 account 传过去
+            String account = getIntent().getStringExtra("account");
+            intent.putExtra("account", account);
+            startActivity(intent);
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

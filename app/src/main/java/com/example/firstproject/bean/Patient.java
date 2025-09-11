@@ -1,11 +1,12 @@
 package com.example.firstproject.bean;
 
 public class Patient {
+    private String account;  // 账号（手机号）
     private int id;              // 患者ID（数据库主键）
     private String name;         // 姓名
     private int age;             // 年龄
     private String gender;       // 性别
-    private String MyPhysician;  // 主治医师
+    private String myPhysician;  // 主治医师
     private String diagnosis;    // 诊断/病情描述
     private String stage;        // 康复阶段（如：软瘫期/痉挛期/恢复期）
     private int progress;        // 康复进度（0-100）
@@ -21,6 +22,7 @@ public class Patient {
         this.name = name;
         this.age = age;
         this.gender = gender;
+        this.myPhysician = myPhysician;
         this.diagnosis = diagnosis;
         this.stage = stage;
         this.progress = progress;
@@ -30,30 +32,41 @@ public class Patient {
     }
 
     // 简化构造函数（只需要基本信息时用）
-    public Patient(String name, String stage, int progress) {
+    public Patient(String name, String gender,int age, String myphysician) {
         this.name = name;
-        this.stage = stage;
-        this.progress = progress;
+        this.gender = gender;
+        this.age = age;
+        this.myPhysician = myphysician;
     }
 
     // Getter & Setter
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String Account) {
+        this.account = Account;
+    }
+
+
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(String Name) { this.name = Name; }
 
     public int getAge() { return age; }
-    public void setAge(int age) { this.age = age; }
+    public void setAge(int Age) { this.age = Age; }
 
     public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public void setGender(String Gender) { this.gender = Gender; }
 
-    public String getMyPhysician() {    return MyPhysician;
+    public String getMyPhysician() {    return myPhysician;
     }
-    public String setMyPhysician(String myPhysician) {
-        MyPhysician = myPhysician;
-        return MyPhysician;
+    public String setMyPhysician(String myphysician) {
+        myPhysician = myphysician;
+        return myPhysician;
     }
     public String getDiagnosis() { return diagnosis; }
     public void setDiagnosis(String diagnosis) { this.diagnosis = diagnosis; }

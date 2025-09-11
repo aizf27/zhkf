@@ -65,8 +65,59 @@ public class PatientDao {
         }
     }
 
+
     // 插入患者详细信息
-    public long insertPatientInfo(Patient patient) {
+    public boolean insertPatientInfo(String account, Patient patient) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PatientDbHelper.COL_ACCOUNT_ID, account);
+        values.put(PatientDbHelper.COL_NAME, patient.getName());
+        values.put(PatientDbHelper.COL_AGE, patient.getAge());
+        values.put(PatientDbHelper.COL_GENDER, patient.getGender());
+        values.put(PatientDbHelper.COL_PHYSICIAN, patient.getMyPhysician());
+        values.put(PatientDbHelper.COL_DIAGNOSIS, patient.getDiagnosis());
+        values.put(PatientDbHelper.COL_STAGE, patient.getStage());
+        values.put(PatientDbHelper.COL_PROGRESS, patient.getProgress());
+        values.put(PatientDbHelper.COL_AI_RESULT, patient.getAiResult());
+        values.put(PatientDbHelper.COL_HAS_ALERT, patient.isHasAlert() ? 1 : 0);
+        values.put(PatientDbHelper.COL_LAST_TRAINING_DATE, patient.getLastTrainingDate());
+
+        long result = db.insert(PatientDbHelper.TABLE_INFO, null, values); // 不插入 id
+        db.close();
+        return result != -1;
+    }
+    // 根据账号查询患者信息
+    public Patient getPatientInfoByAccount(String account) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(PatientDbHelper.TABLE_INFO,
+                null,
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",
+                new String[]{account},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Patient patient = new Patient(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_INFO_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_DIAGNOSIS)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_STAGE)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PROGRESS)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AI_RESULT)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_HAS_ALERT)) == 1,
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_LAST_TRAINING_DATE))
+            );
+            cursor.close();
+            return patient;
+        }
+        if (cursor != null) cursor.close();
+        return null;
+    }
+
+    // 更新患者信息
+    public boolean updatePatientInfo(String account, Patient patient) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(PatientDbHelper.COL_NAME, patient.getName());
@@ -80,8 +131,13 @@ public class PatientDao {
         values.put(PatientDbHelper.COL_HAS_ALERT, patient.isHasAlert() ? 1 : 0);
         values.put(PatientDbHelper.COL_LAST_TRAINING_DATE, patient.getLastTrainingDate());
 
-        return db.insert(PatientDbHelper.TABLE_INFO, null, values);
+        int rows = db.update(PatientDbHelper.TABLE_INFO, values,
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",
+                new String[]{account});
+        db.close();
+        return rows > 0;
     }
+
 
     // 根据患者 id 查询信息
     public Patient getPatientInfoById(int id) {
@@ -106,10 +162,40 @@ public class PatientDao {
                     cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_HAS_ALERT)) == 1,
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_LAST_TRAINING_DATE))
             );
+
             cursor.close();
             return patient;
         }
         if (cursor != null) cursor.close();
         return null;
     }
+    public boolean isInfoComplete(String account) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(PatientDbHelper.TABLE_INFO,
+                new String[]{PatientDbHelper.COL_NAME,
+                        PatientDbHelper.COL_AGE,
+                        PatientDbHelper.COL_GENDER,
+                        PatientDbHelper.COL_PHYSICIAN},
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",   // 用正确的列名
+                new String[]{account},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME));
+            int age = cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE));
+            String gender = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER));
+            String physician = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN));
+            cursor.close();
+
+            return name != null && !name.isEmpty()
+                    && age > 0
+                    && gender != null && !gender.isEmpty()
+                    && physician != null && !physician.isEmpty();
+        }
+        if (cursor != null) cursor.close();
+        return false;
+    }
+
+
+
 }

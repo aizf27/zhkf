@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.firstproject.databinding.ActivityPtLogBinding;
 import com.example.firstproject.Dao.PatientDao;
+import com.example.firstproject.util.main.PtInfoActivity;
 import com.example.firstproject.util.main.PtMainActivity;
 
 public class PtLog extends AppCompatActivity {
@@ -65,7 +66,7 @@ public class PtLog extends AppCompatActivity {
                 case 1:
                     Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
                     saveLoginInfo(id, password, binding.cbRememberPassword.isChecked());
-                    goToMain();
+                    goNext(id);
                     break;
                 case 2:
                     Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
@@ -95,7 +96,7 @@ public class PtLog extends AppCompatActivity {
                 case 1:
                     Toast.makeText(this, "账号已存在，自动登录", Toast.LENGTH_SHORT).show();
                     saveLoginInfo(id, password, binding.cbRememberPassword.isChecked());
-                    goToMain();
+                    goNext(id);
                     break;
                 case 2:
                     Toast.makeText(this, "账号存在但密码错误", Toast.LENGTH_SHORT).show();
@@ -122,8 +123,21 @@ public class PtLog extends AppCompatActivity {
         editor.apply();
     }
 
-    private void goToMain() {
-        startActivity(new Intent(PtLog.this, PtMainActivity.class));
+    private void goNext(String account) {
+        // 查询患者信息是否完整
+        if (!patientDao.isInfoComplete(account)) {
+            // 信息未完善 → 跳转到 PatientInfoActivity
+            Intent intent = new Intent(PtLog.this, PtInfoActivity.class);
+            intent.putExtra("account", account);
+            startActivity(intent);
+        } else {
+            // 信息已完善 → 跳转 PtMainActivity
+            Intent intent = new Intent(PtLog.this, PtMainActivity.class);
+            intent.putExtra("account", account);
+            startActivity(intent);
+        }
         finish();
     }
+
+
 }

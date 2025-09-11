@@ -45,6 +45,7 @@ public class PatientDbHelper extends SQLiteOpenHelper {
         // ---------- 创建 patient_info ----------
         String createInfoTable = "CREATE TABLE " + TABLE_INFO + " ("
                 + COL_INFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "account TEXT, "       // 新增账号列
                 + COL_NAME + " TEXT, "
                 + COL_AGE + " INTEGER, "
                 + COL_GENDER + " TEXT, "
