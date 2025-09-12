@@ -137,11 +137,13 @@ public class DtLog extends AppCompatActivity {
         if (!doctorDao.isInfoComplete(id)) {
             // 信息未完善 → 跳转到 DttientInfoActivity
             Intent intent = new Intent(DtLog.this, DtInfoActivity.class);
+
             intent.putExtra("doctorCode", id); // 工号
             startActivity(intent);
         } else {
             // 信息已完善 → 跳转 DtMainActivity
             Intent intent = new Intent(DtLog.this, DtMainActivity.class);
+
             intent.putExtra("doctorCode", id); // 工号
             startActivity(intent);
         }

@@ -19,6 +19,7 @@ public class Patient {
     public Patient(int id, String name, int age, String gender,String physicianName,String physicianCode, String diagnosis,
                    String stage, int progress, String aiResult,
                    boolean hasAlert, String lastTrainingDate) {
+
         this.id = id;
         this.name = name;
         this.age = age;

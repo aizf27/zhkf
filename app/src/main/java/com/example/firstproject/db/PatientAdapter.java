@@ -1,5 +1,6 @@
 package com.example.firstproject.db;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientViewHolder> {
     private List<Patient> patientList;
+
 
     public PatientAdapter(List<Patient> patientList) {
         this.patientList = patientList;
@@ -45,6 +47,12 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         } else {
             holder.imgAlert.setVisibility(View.GONE);
         }
+        // 在这里直接设置点击事件
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), com.example.firstproject.util.main.PtInfoActivity.class);
+            intent.putExtra("account", patient.getAccount());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override

@@ -58,6 +58,7 @@ public class PtInfoActivity extends AppCompatActivity {
         int age = Integer.parseInt(ageStr);
 
         Patient patient = new Patient(
+
                 0,
                 name,
                 age,

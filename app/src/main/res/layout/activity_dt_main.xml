@@ -48,7 +48,7 @@
              android:id="@+id/tv_online"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="在线 32"
+             android:text="在线 0"
              android:textSize="12sp" />
       </LinearLayout>
 
@@ -63,7 +63,7 @@
              android:id="@+id/tv_alerts"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="待处理预警: 3"
+             android:text="待处理预警: 0"
              android:textColor="#D32F2F"
              android:textStyle="bold" />
 

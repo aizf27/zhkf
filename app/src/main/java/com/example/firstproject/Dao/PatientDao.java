@@ -101,6 +101,7 @@ public class PatientDao {
 
         if (cursor != null && cursor.moveToFirst()) {
             Patient patient = new Patient(
+
                     cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_INFO_ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
@@ -194,6 +195,7 @@ public class PatientDao {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 Patient patient = new Patient(
+
                         cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_INFO_ID)),
                         cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
@@ -207,6 +209,7 @@ public class PatientDao {
                         cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_HAS_ALERT)) == 1,
                         cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_LAST_TRAINING_DATE))
                 );
+                patient.setAccount(cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_ACCOUNT_ID)));
                 patientList.add(patient);
             }
             cursor.close();

@@ -17,6 +17,7 @@ import com.example.firstproject.databinding.ActivityDtInfoBinding;
 public class DtInfoActivity extends AppCompatActivity {
     private ActivityDtInfoBinding binding;
     private DoctorDao doctorDao;
+    private String doctorName;
     private String doctorCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,8 @@ public class DtInfoActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         binding=ActivityDtInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //获取工号
+        //获取工号和姓名
+        doctorName = getIntent().getStringExtra("doctorName");
         doctorCode = getIntent().getStringExtra("doctorCode");
         // 初始化 DAO
         doctorDao = new DoctorDao(this);
@@ -78,7 +80,9 @@ public class DtInfoActivity extends AppCompatActivity {
             return;
         }
 
-        Doctor doctor = new Doctor(doctorCode, name, gender,age,department, ptNum);
+
+
+        Doctor doctor = new Doctor(doctorCode, name, gender, age, department, ptNum);
 
         boolean success;
         Doctor exist = doctorDao.getDoctorInfo(doctorCode);
@@ -90,12 +94,12 @@ public class DtInfoActivity extends AppCompatActivity {
 
         if (success) {
             Toast.makeText(this, "信息保存成功", Toast.LENGTH_SHORT).show();
-            // 返回医生主界面
             Intent intent = new Intent(DtInfoActivity.this, DtMainActivity.class);
-            intent.putExtra("doctorCode", doctorCode);
+            intent.putExtra("doctorCode", doctorCode);  // 只传工号就够了
             startActivity(intent);
             finish();
-        } else {
+        }
+        else {
             Toast.makeText(this, "保存失败，请重试", Toast.LENGTH_SHORT).show();
         }
     }

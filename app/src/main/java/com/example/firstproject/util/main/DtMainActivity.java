@@ -10,9 +10,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.firstproject.Dao.DoctorDao;
+import com.example.firstproject.Dao.PatientDao;
 import com.example.firstproject.R;
+import com.example.firstproject.bean.Doctor;
 import com.example.firstproject.bean.Patient;
-import com.example.firstproject.databinding.ActivityDtLogBinding;
+
 import com.example.firstproject.databinding.ActivityDtMainBinding;
 import com.example.firstproject.db.PatientAdapter;
 
@@ -22,6 +25,8 @@ import java.util.List;
 public class DtMainActivity extends AppCompatActivity {
 private ActivityDtMainBinding binding;
     private String doctorCode;
+    private String doctorName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,18 +34,29 @@ private ActivityDtMainBinding binding;
         EdgeToEdge.enable(this);
         binding = ActivityDtMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //获取工号
+        // 获取医生信息（工号和姓名）
         doctorCode = getIntent().getStringExtra("doctorCode");
-        // RecyclerView 初始化
-        binding.rvKeyPatients.setLayoutManager(new LinearLayoutManager(this));
+        Doctor doctor = new DoctorDao(this).getDoctorInfo(doctorCode);
+        if (doctor != null) {
+            doctorName = doctor.getName();
+        } else {
+            doctorName = "";
+        }
 
-        List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient(1,"张三", 34,"man","赵医生","1","脑瘫","痉挛期", 60, "肌力↑", false,"9.8"));
-        patients.add(new Patient(2, "李妹", 45, "woman", "赵医生","1","脑卒中", "恢复期", 75, "平衡能力改善", true, "9.5"));
-        patients.add(new Patient(3, "王五", 28, "man","赵医生", "1","脊髓损伤", "康复期", 85, "关节活动度改善", false, "8.22"));
 
+        //从数据库获取患者列表
+        PatientDao patientDao = new PatientDao(this);
+        List<Patient> patients = patientDao.getPatientsByDoctor(doctorName, doctorCode);
+        //
+        // 初始化 Adapter
         PatientAdapter adapter = new PatientAdapter(patients);
+        binding.rvKeyPatients.setLayoutManager(new LinearLayoutManager(this));
         binding.rvKeyPatients.setAdapter(adapter);
+
+        //显示患者总数
+      binding.tvTotalValue.setText(String.valueOf(patients.size()));
+
+
 
 
 
