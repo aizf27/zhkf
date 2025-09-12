@@ -1,5 +1,6 @@
 package com.example.firstproject.util.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class DtMainActivity extends AppCompatActivity {
 private ActivityDtMainBinding binding;
+    private String doctorCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,17 +29,26 @@ private ActivityDtMainBinding binding;
         EdgeToEdge.enable(this);
         binding = ActivityDtMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        //获取工号
+        doctorCode = getIntent().getStringExtra("doctorCode");
         // RecyclerView 初始化
         binding.rvKeyPatients.setLayoutManager(new LinearLayoutManager(this));
 
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient(1,"张三", 34,"man","赵医生","脑瘫","痉挛期", 60, "肌力↑", false,"9.8"));
-        patients.add(new Patient(2, "李妹", 45, "woman", "赵医生","脑卒中", "恢复期", 75, "平衡能力改善", true, "9.5"));
-        patients.add(new Patient(3, "王五", 28, "man","赵医生", "脊髓损伤", "康复期", 85, "关节活动度改善", false, "8.22"));
+        patients.add(new Patient(1,"张三", 34,"man","赵医生","1","脑瘫","痉挛期", 60, "肌力↑", false,"9.8"));
+        patients.add(new Patient(2, "李妹", 45, "woman", "赵医生","1","脑卒中", "恢复期", 75, "平衡能力改善", true, "9.5"));
+        patients.add(new Patient(3, "王五", 28, "man","赵医生", "1","脊髓损伤", "康复期", 85, "关节活动度改善", false, "8.22"));
 
         PatientAdapter adapter = new PatientAdapter(patients);
         binding.rvKeyPatients.setAdapter(adapter);
+
+
+
+
+        binding.btnInfoCenter.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DtInfoActivity.class);
+            intent.putExtra("doctorCode", doctorCode); // 工号
+            startActivity(intent);});
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

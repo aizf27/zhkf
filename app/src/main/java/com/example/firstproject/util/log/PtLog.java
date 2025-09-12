@@ -44,7 +44,7 @@ public class PtLog extends AppCompatActivity {
         binding.etPtId.setText(savedId);
         if (remember) {
             binding.etPtPassword.setText(savedPassword);
-            // 需要在 XML 里加个 CheckBox (cbRememberPassword)
+
             binding.cbRememberPassword.setChecked(true);
         }
 

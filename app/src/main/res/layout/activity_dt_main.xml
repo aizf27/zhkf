@@ -169,29 +169,7 @@
       </LinearLayout>
 
 
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:layout_columnWeight="1"
-          android:gravity="center"
-          android:padding="8dp">
 
-         <ImageButton
-             android:id="@+id/btn_message_center"
-             android:layout_width="42dp"
-             android:layout_height="42dp"
-             android:background="@null"
-             android:contentDescription="消息中心"
-             android:scaleType="centerCrop"
-             android:src="@mipmap/icon_info_center"
-             tools:ignore="TouchTargetSizeCheck" />
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="消息中心"
-             android:textSize="12sp"/>
-      </LinearLayout>
 
       <LinearLayout
           android:layout_width="0dp"
@@ -214,6 +192,29 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="筛选/搜索"
+             android:textSize="12sp"/>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_columnWeight="1"
+          android:gravity="center"
+          android:padding="8dp">
+
+         <ImageButton
+             android:id="@+id/btn_info_center"
+             android:layout_width="42dp"
+             android:layout_height="42dp"
+             android:background="@null"
+             android:contentDescription="个人中心"
+             android:scaleType="centerCrop"
+             android:src="@mipmap/icon_info_center"
+             tools:ignore="TouchTargetSizeCheck" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="个人中心"
              android:textSize="12sp"/>
       </LinearLayout>
 

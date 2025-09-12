@@ -39,14 +39,16 @@ public class PtInfoActivity extends AppCompatActivity {
             binding.etName.setText(patient.getName());
             binding.etGender.setText(patient.getGender());
             binding.etAge.setText(String.valueOf(patient.getAge()));
-            binding.etDoctor.setText(patient.getMyPhysician());
+            binding.etDoctorName.setText(patient.getPhysicianName());
+            binding.etDoctorCode.setText(patient.getPhysicianCode());
         }
     }
     private void savePatientInfo() {
         String name = binding.etName.getText().toString().trim();
         String gender = binding.etGender.getText().toString().trim();
         String ageStr = binding.etAge.getText().toString().trim();
-        String doctor = binding.etDoctor.getText().toString().trim();
+        String doctor = binding.etDoctorName.getText().toString().trim();
+        String doctorCode = binding.etDoctorCode.getText().toString().trim();
 
         if (name.isEmpty() || gender.isEmpty() || ageStr.isEmpty() || doctor.isEmpty()) {
             Toast.makeText(this, "请填写完整信息", Toast.LENGTH_SHORT).show();
@@ -61,6 +63,7 @@ public class PtInfoActivity extends AppCompatActivity {
                 age,
                 gender,
                 doctor,
+                doctorCode,
                 "无",
                 "未设置",
                 0,
@@ -71,7 +74,7 @@ public class PtInfoActivity extends AppCompatActivity {
 
         boolean success;
 
-        // 🔑 先查数据库里是否已有该账号
+        //先查数据库里是否已有该账号
         Patient exist = patientDao.getPatientInfoByAccount(account);
         if (exist == null) {
             success = patientDao.insertPatientInfo(account, patient); // 首次 → 插入

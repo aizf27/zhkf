@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.firstproject.bean.Patient;
 import com.example.firstproject.db.PatientDbHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PatientDao {
     private PatientDbHelper dbHelper;
 
@@ -74,7 +77,8 @@ public class PatientDao {
         values.put(PatientDbHelper.COL_NAME, patient.getName());
         values.put(PatientDbHelper.COL_AGE, patient.getAge());
         values.put(PatientDbHelper.COL_GENDER, patient.getGender());
-        values.put(PatientDbHelper.COL_PHYSICIAN, patient.getMyPhysician());
+        values.put(PatientDbHelper.COL_PHYSICIAN_NAME, patient.getPhysicianName());
+        values.put(PatientDbHelper.COL_PHYSICIAN_CODE, patient.getPhysicianCode());
         values.put(PatientDbHelper.COL_DIAGNOSIS, patient.getDiagnosis());
         values.put(PatientDbHelper.COL_STAGE, patient.getStage());
         values.put(PatientDbHelper.COL_PROGRESS, patient.getProgress());
@@ -101,7 +105,8 @@ public class PatientDao {
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_CODE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_DIAGNOSIS)),
                     cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_STAGE)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PROGRESS)),
@@ -123,7 +128,8 @@ public class PatientDao {
         values.put(PatientDbHelper.COL_NAME, patient.getName());
         values.put(PatientDbHelper.COL_AGE, patient.getAge());
         values.put(PatientDbHelper.COL_GENDER, patient.getGender());
-        values.put(PatientDbHelper.COL_PHYSICIAN, patient.getMyPhysician());
+        values.put(PatientDbHelper.COL_PHYSICIAN_NAME, patient.getPhysicianName());
+        values.put(PatientDbHelper.COL_PHYSICIAN_CODE, patient.getPhysicianCode());
         values.put(PatientDbHelper.COL_DIAGNOSIS, patient.getDiagnosis());
         values.put(PatientDbHelper.COL_STAGE, patient.getStage());
         values.put(PatientDbHelper.COL_PROGRESS, patient.getProgress());
@@ -139,44 +145,18 @@ public class PatientDao {
     }
 
 
-    // 根据患者 id 查询信息
-    public Patient getPatientInfoById(int id) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(PatientDbHelper.TABLE_INFO,
-                null,
-                PatientDbHelper.COL_INFO_ID + "=?",
-                new String[]{String.valueOf(id)},
-                null, null, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            Patient patient = new Patient(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_INFO_ID)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_DIAGNOSIS)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_STAGE)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PROGRESS)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AI_RESULT)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_HAS_ALERT)) == 1,
-                    cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_LAST_TRAINING_DATE))
-            );
-
-            cursor.close();
-            return patient;
-        }
-        if (cursor != null) cursor.close();
-        return null;
-    }
     public boolean isInfoComplete(String account) {
+
+        if (account == null || account.trim().isEmpty()) return false;
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(PatientDbHelper.TABLE_INFO,
                 new String[]{PatientDbHelper.COL_NAME,
                         PatientDbHelper.COL_AGE,
                         PatientDbHelper.COL_GENDER,
-                        PatientDbHelper.COL_PHYSICIAN},
-                PatientDbHelper.COL_ACCOUNT_ID + "=?",   // 用正确的列名
+                        PatientDbHelper.COL_PHYSICIAN_NAME,
+                        PatientDbHelper.COL_PHYSICIAN_CODE},
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",
                 new String[]{account},
                 null, null, null);
 
@@ -184,16 +164,56 @@ public class PatientDao {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME));
             int age = cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE));
             String gender = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER));
-            String physician = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN));
+            String physicianName = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_NAME));
+            String physicianCode = cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_CODE));
             cursor.close();
 
             return name != null && !name.isEmpty()
                     && age > 0
                     && gender != null && !gender.isEmpty()
-                    && physician != null && !physician.isEmpty();
+                    && physicianName != null && !physicianName.isEmpty() && physicianCode != null &&!physicianCode.isEmpty();
         }
         if (cursor != null) cursor.close();
         return false;
+    }
+
+    // 根据医生姓名和工号获取患者列表
+    // PatientDao.java 里添加
+    public List<Patient> getPatientsByDoctor(String physicianName, String physicianCode) {
+        List<Patient> patientList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                PatientDbHelper.TABLE_INFO,
+                null, // 查询所有列
+                PatientDbHelper.COL_PHYSICIAN_NAME + "=? AND " + PatientDbHelper.COL_PHYSICIAN_CODE + "=?",
+                new String[]{physicianName, physicianCode},
+                null, null, null
+        );
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Patient patient = new Patient(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_INFO_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_NAME)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AGE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_GENDER)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PHYSICIAN_CODE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_DIAGNOSIS)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_STAGE)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_PROGRESS)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_AI_RESULT)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_HAS_ALERT)) == 1,
+                        cursor.getString(cursor.getColumnIndexOrThrow(PatientDbHelper.COL_LAST_TRAINING_DATE))
+                );
+                patientList.add(patient);
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return patientList;
     }
 
 
