@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.firstproject.databinding.ActivityPtMainBinding;
-import com.example.firstproject.util.main.PsychologyActivity;
+import com.example.firstproject.util.main.Psychlogy.PsychologyActivity;
 import com.example.firstproject.util.main.TrainVideo.TrainingVideoActivity;
 
 public class PtMainActivity extends AppCompatActivity {

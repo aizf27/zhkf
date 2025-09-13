@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstProject">
         <activity
-            android:name=".util.main.PsychologyActivity"
+            android:name=".util.main.Psychlogy.PsychologyActivity"
             android:exported="false" />
         <activity
             android:name=".util.main.TrainVideo.VideoPlayerActivity"
