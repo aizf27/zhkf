@@ -49,7 +49,7 @@ private ActivityDtMainBinding binding;
         List<Patient> patients = patientDao.getPatientsByDoctor(doctorName, doctorCode);
         //
         // 初始化 Adapter
-        PatientAdapter adapter = new PatientAdapter(patients);
+        PatientAdapter adapter = new PatientAdapter(patients,doctorCode);
         binding.rvKeyPatients.setLayoutManager(new LinearLayoutManager(this));
         binding.rvKeyPatients.setAdapter(adapter);
 
@@ -58,12 +58,11 @@ private ActivityDtMainBinding binding;
 
 
 
-
-
-
         binding.btnInfoCenter.setOnClickListener(v -> {
             Intent intent = new Intent(this, DtInfoActivity.class);
-            intent.putExtra("doctorCode", doctorCode); // 工号
+
+            intent.putExtra("doctorCode", doctorCode); // 医生工号
+
             startActivity(intent);});
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {

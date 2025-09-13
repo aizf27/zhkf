@@ -129,11 +129,13 @@ public class PtLog extends AppCompatActivity {
             // 信息未完善 → 跳转到 PatientInfoActivity
             Intent intent = new Intent(PtLog.this, PtInfoActivity.class);
             intent.putExtra("account", account);
+            intent.putExtra("mode", "patient");
             startActivity(intent);
         } else {
             // 信息已完善 → 跳转 PtMainActivity
             Intent intent = new Intent(PtLog.this, PtMainActivity.class);
             intent.putExtra("account", account);
+            intent.putExtra("mode", "patient");
             startActivity(intent);
         }
         finish();

@@ -18,10 +18,11 @@ import java.util.List;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientViewHolder> {
     private List<Patient> patientList;
+    private String doctorCode;
 
-
-    public PatientAdapter(List<Patient> patientList) {
+    public PatientAdapter(List<Patient> patientList, String doctorCode) {
         this.patientList = patientList;
+        this.doctorCode = doctorCode;
     }
 
     @NonNull
@@ -51,6 +52,8 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), com.example.firstproject.util.main.PtInfoActivity.class);
             intent.putExtra("account", patient.getAccount());
+            intent.putExtra("mode","doctor");
+            intent.putExtra("doctorCode", doctorCode);       // 当前医生工号
             holder.itemView.getContext().startActivity(intent);
         });
     }

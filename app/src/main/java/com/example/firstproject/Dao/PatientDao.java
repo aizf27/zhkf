@@ -145,7 +145,7 @@ public class PatientDao {
         return rows > 0;
     }
 
-
+    //判断基础信息是否填写完整
     public boolean isInfoComplete(String account) {
 
         if (account == null || account.trim().isEmpty()) return false;
@@ -179,7 +179,6 @@ public class PatientDao {
     }
 
     // 根据医生姓名和工号获取患者列表
-    // PatientDao.java 里添加
     public List<Patient> getPatientsByDoctor(String physicianName, String physicianCode) {
         List<Patient> patientList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -218,6 +217,39 @@ public class PatientDao {
         db.close();
         return patientList;
     }
+
+    //患者用
+    // 患者用：更新基础信息
+    public void updateBasicInfo(Patient patient) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PatientDbHelper.COL_NAME, patient.getName());
+        values.put(PatientDbHelper.COL_AGE, patient.getAge());
+        values.put(PatientDbHelper.COL_GENDER, patient.getGender());
+        values.put(PatientDbHelper.COL_PHYSICIAN_NAME, patient.getPhysicianName());
+        values.put(PatientDbHelper.COL_PHYSICIAN_CODE, patient.getPhysicianCode());
+        db.update(PatientDbHelper.TABLE_INFO, values,
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",
+                new String[]{patient.getAccount()});
+        db.close();
+    }
+
+    // 医生用：更新康复信息
+    public void updateRehabInfo(Patient patient) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PatientDbHelper.COL_DIAGNOSIS, patient.getDiagnosis());
+        values.put(PatientDbHelper.COL_STAGE, patient.getStage());
+        values.put(PatientDbHelper.COL_PROGRESS, patient.getProgress());
+        values.put(PatientDbHelper.COL_AI_RESULT, patient.getAiResult());
+        values.put(PatientDbHelper.COL_HAS_ALERT, patient.isHasAlert() ? 1 : 0);
+        values.put(PatientDbHelper.COL_LAST_TRAINING_DATE, patient.getLastTrainingDate());
+        db.update(PatientDbHelper.TABLE_INFO, values,
+                PatientDbHelper.COL_ACCOUNT_ID + "=?",
+                new String[]{patient.getAccount()});
+        db.close();
+    }
+
 
 
 
