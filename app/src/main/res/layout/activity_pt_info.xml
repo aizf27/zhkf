@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="12dp">
 
     <LinearLayout
@@ -14,7 +15,7 @@
             android:text="基础信息"
             android:textStyle="bold"
             android:textSize="22sp"
-
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="12dp"/>
 
         <!-- 姓名 -->
@@ -251,6 +252,7 @@
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:backgroundTint="@color/green_shallow"
             android:text="保存信息"
             android:layout_marginTop="15dp"/>
     </LinearLayout>

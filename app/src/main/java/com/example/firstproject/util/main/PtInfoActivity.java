@@ -25,7 +25,9 @@ public class PtInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPtInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         Log.d("PtInfoActivity", "onCreate");
+
         patientDao = new PatientDao(this);
         doctorCode = getIntent().getStringExtra("doctorCode");  //医生工号
         Log.d("PtInfoActivity", "doctorCode: " + doctorCode);
@@ -35,6 +37,7 @@ public class PtInfoActivity extends AppCompatActivity {
         //获取模式信息
         mode = getIntent().getStringExtra("mode"); // "patient" 或 "doctor"
         Log.d("PtInfoActivity", "mode: " + mode);
+
         loadPatientInfo();
         setModeUI();
         // 保存按钮

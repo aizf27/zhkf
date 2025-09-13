@@ -2,6 +2,7 @@ package com.example.firstproject.util.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +20,7 @@ public class DtInfoActivity extends AppCompatActivity {
     private DoctorDao doctorDao;
     private String doctorName;
     private String doctorCode;
+    private int patientCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,12 @@ public class DtInfoActivity extends AppCompatActivity {
         //获取工号和姓名
         doctorName = getIntent().getStringExtra("doctorName");
         doctorCode = getIntent().getStringExtra("doctorCode");
+        //获取总患者数
+        patientCount = getIntent().getIntExtra("toTalValue",0);
+        Log.d("DtInfoActivity", "toTalValue: " + patientCount);
+
+        Log.d("DtInfoActivity", "doctorName: " + doctorName);
+        Log.d("DtInfoActivity", "doctorCode: " + doctorCode);
         // 初始化 DAO
         doctorDao = new DoctorDao(this);
 
@@ -50,7 +58,7 @@ public class DtInfoActivity extends AppCompatActivity {
             binding.tvCode.setText("工号："+doctor.getId());
             binding.etName.setText(doctor.getName());
             binding.etAge.setText(String.valueOf(doctor.getAge()));
-            binding.etPtNum.setText(String.valueOf(doctor.getPatientCount()));
+            binding.etPtNum.setText(String.valueOf(patientCount));
             binding.etGender.setText(doctor.getGender());
             binding.etDepartment.setText(doctor.getDepartment());
         } else {

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".util.log.selectLog"
     android:orientation="vertical">
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center"
-        android:src="@mipmap/logo"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageLogo"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:src="@mipmap/ic_launcher_foreground"-->
+<!--        />-->
     <TextView
         android:id="@+id/textWelcome"
         android:layout_width="wrap_content"
@@ -22,14 +22,14 @@
         android:text="Welcome To You!"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="160dp"
         android:layout_marginBottom="10dp"
         />
     <TextView
         android:id="@+id/textSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Log Means"
+        android:text="Select the login method"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -82,7 +82,7 @@
             android:text="Doctor Log "
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="30dp"
 
             />
         <TextView
@@ -92,7 +92,7 @@
             android:text="Patient Log "
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="30dp"
             />
     </LinearLayout>
 

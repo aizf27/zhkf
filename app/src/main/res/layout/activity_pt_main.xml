@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         android:padding="12dp"
+        android:layout_marginHorizontal="8dp"
         app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
+
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -126,24 +128,37 @@
         android:id="@+id/tv_rewards"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
+        android:layout_marginHorizontal="10dp"
         android:text="连续打卡 7 天，获得康复积分 +10"
         android:paddingTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/progress_section"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <Button
+
+
+    <ImageButton
         android:id="@+id/btn_view_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查看信息"
-        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="5dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_rewards"
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/person_info"
+        android:text="查看个人信息"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/patient_functions" />
 
-    <!-- 下方：功能卡片（两行 Grid） -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_view_info"
+        android:text="个人信息"/>
+
     <GridLayout
         android:id="@+id/patient_functions"
         android:layout_width="0dp"

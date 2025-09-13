@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">First project</string>
+    <string name="app_name">智慧康复</string>
     <string name="doctor_login"><![CDATA[<u>医生登录</u>]]></string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.firstproject.util.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,8 @@ private ActivityDtMainBinding binding;
         setContentView(binding.getRoot());
         // 获取医生信息（工号和姓名）
         doctorCode = getIntent().getStringExtra("doctorCode");
+        Log.d("DtMainActivity", "doctorCode: " + doctorCode);
+
         Doctor doctor = new DoctorDao(this).getDoctorInfo(doctorCode);
         if (doctor != null) {
             doctorName = doctor.getName();
@@ -62,7 +65,8 @@ private ActivityDtMainBinding binding;
             Intent intent = new Intent(this, DtInfoActivity.class);
 
             intent.putExtra("doctorCode", doctorCode); // 医生工号
-
+            intent.putExtra("doctorName", doctorName);
+            intent.putExtra("toTalValue", patients.size());
             startActivity(intent);});
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
