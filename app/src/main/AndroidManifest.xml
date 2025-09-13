@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,16 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstProject">
         <activity
-            android:name=".util.main.DtInfoActivity"
+            android:name=".util.main.PsychologyActivity"
             android:exported="false" />
         <activity
-            android:name=".util.main.PtInfoActivity"
+            android:name=".util.main.TrainVideo.VideoPlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".util.main.PtMainActivity"
+            android:name=".util.main.TrainVideo.TrainingVideoActivity"
             android:exported="false" />
         <activity
-            android:name=".util.main.DtMainActivity"
+            android:name=".util.main.dt_or_pt.DtInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".util.main.dt_or_pt.PtInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".util.main.dt_or_pt.PtMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".util.main.dt_or_pt.DtMainActivity"
             android:exported="false" />
         <activity
             android:name=".util.log.PtLog"

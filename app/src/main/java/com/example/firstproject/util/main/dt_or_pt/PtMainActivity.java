@@ -1,4 +1,4 @@
-package com.example.firstproject.util.main;
+package com.example.firstproject.util.main.dt_or_pt;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.firstproject.R;
-import com.example.firstproject.databinding.ActivityPtLogBinding;
 import com.example.firstproject.databinding.ActivityPtMainBinding;
+import com.example.firstproject.util.main.PsychologyActivity;
+import com.example.firstproject.util.main.TrainVideo.TrainingVideoActivity;
 
 public class PtMainActivity extends AppCompatActivity {
 private ActivityPtMainBinding binding;
@@ -28,6 +28,19 @@ private ActivityPtMainBinding binding;
             // 把 account 传过去
             String account = getIntent().getStringExtra("account");
             intent.putExtra("mode","patient");
+            intent.putExtra("account", account);
+            startActivity(intent);
+        });
+        //跳转到训练视频界面
+        binding.cardTraining.setOnClickListener(view -> {
+            Intent intent = new Intent(this, TrainingVideoActivity.class);
+
+            startActivity(intent);
+        });
+//        跳转到心理助手界面
+        binding.cardPsychology.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PsychologyActivity.class);
+            String account = getIntent().getStringExtra("account");
             intent.putExtra("account", account);
             startActivity(intent);
         });

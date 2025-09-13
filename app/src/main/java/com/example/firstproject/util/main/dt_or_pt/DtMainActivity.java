@@ -1,4 +1,4 @@
-package com.example.firstproject.util.main;
+package com.example.firstproject.util.main.dt_or_pt;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.firstproject.Dao.DoctorDao;
 import com.example.firstproject.Dao.PatientDao;
-import com.example.firstproject.R;
 import com.example.firstproject.bean.Doctor;
 import com.example.firstproject.bean.Patient;
 
 import com.example.firstproject.databinding.ActivityDtMainBinding;
 import com.example.firstproject.db.PatientAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DtMainActivity extends AppCompatActivity {

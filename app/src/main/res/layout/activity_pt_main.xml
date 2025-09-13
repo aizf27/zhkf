@@ -175,6 +175,7 @@
 
         <!-- 每个卡片用 CardView 包裹 -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardTraining"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"
@@ -254,6 +255,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPsychology"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"

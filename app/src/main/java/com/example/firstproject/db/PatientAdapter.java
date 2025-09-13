@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstproject.R;
 import com.example.firstproject.bean.Patient;
+import com.example.firstproject.util.main.dt_or_pt.PtInfoActivity;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         }
         // 在这里直接设置点击事件
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), com.example.firstproject.util.main.PtInfoActivity.class);
+            Intent intent = new Intent(holder.itemView.getContext(), PtInfoActivity.class);
             intent.putExtra("account", patient.getAccount());
             intent.putExtra("mode","doctor");
             intent.putExtra("doctorCode", doctorCode);       // 当前医生工号

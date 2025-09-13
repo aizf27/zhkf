@@ -1,4 +1,4 @@
-package com.example.firstproject.util.main;
+package com.example.firstproject.util.main.dt_or_pt;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,11 +42,6 @@ public class PtInfoActivity extends AppCompatActivity {
         setModeUI();
         // 保存按钮
         binding.btnSave.setOnClickListener(v -> savePatientInfo());
-
-
-
-
-
 
     }
     private void loadPatientInfo() {

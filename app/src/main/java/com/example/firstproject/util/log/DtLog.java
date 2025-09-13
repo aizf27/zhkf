@@ -14,10 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.firstproject.databinding.ActivityDtLogBinding;
 import com.example.firstproject.Dao.DoctorDao;
-import com.example.firstproject.util.main.DtInfoActivity;
-import com.example.firstproject.util.main.DtMainActivity;
-import com.example.firstproject.util.main.PtInfoActivity;
-import com.example.firstproject.util.main.PtMainActivity;
+import com.example.firstproject.util.main.dt_or_pt.DtInfoActivity;
+import com.example.firstproject.util.main.dt_or_pt.DtMainActivity;
 
 public class DtLog extends AppCompatActivity {
     private ActivityDtLogBinding binding;

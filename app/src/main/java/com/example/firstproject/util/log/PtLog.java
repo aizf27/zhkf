@@ -14,8 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.firstproject.databinding.ActivityPtLogBinding;
 import com.example.firstproject.Dao.PatientDao;
-import com.example.firstproject.util.main.PtInfoActivity;
-import com.example.firstproject.util.main.PtMainActivity;
+import com.example.firstproject.util.main.dt_or_pt.PtInfoActivity;
+import com.example.firstproject.util.main.dt_or_pt.PtMainActivity;
 
 public class PtLog extends AppCompatActivity {
     private ActivityPtLogBinding binding;
