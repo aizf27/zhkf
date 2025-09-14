@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.firstproject.bean.Doctor;
 import com.example.firstproject.db.DoctorDbHelper;
-import com.example.firstproject.db.PatientDbHelper;
 
 public class DoctorDao {
     private DoctorDbHelper dbHelper;
@@ -16,9 +15,8 @@ public class DoctorDao {
         dbHelper = new DoctorDbHelper(context);
     }
 
-    // ==============================
-    // 账号相关操作（doctor_account）
-    // ==============================
+
+    //账号相关操作（doctor_account）
     public int checkDoctor(String id, String password) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -30,12 +28,10 @@ public class DoctorDao {
                 new String[]{id},
                 null, null, null
         );
-
         if (!cursor.moveToFirst()) {
             cursor.close();
             return 0; // 用户不存在
         }
-
         // 获取数据库中密码
         String dbPassword = cursor.getString(cursor.getColumnIndexOrThrow(DoctorDbHelper.COL_ACCOUNT_PASSWORD));
         cursor.close();
@@ -47,11 +43,10 @@ public class DoctorDao {
         }
     }
 
-    // 注册医生账号
+    //注册医生账号
     public boolean registerDoctorAccount(String id, String password) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // 检查账号是否存在
+        //检查账号是否存在
         Cursor cursor = db.query(DoctorDbHelper.TABLE_DOCTOR_ACCOUNT,
                 null,
                 DoctorDbHelper.COL_ACCOUNT_ID + "=?",
@@ -60,19 +55,19 @@ public class DoctorDao {
 
         if (cursor.moveToFirst()) {
             cursor.close();
-            return false; // 已存在
+            return false; //已存在
         }
         cursor.close();
 
-        // 插入新账号
+        //插入新账号
         ContentValues values = new ContentValues();
         values.put(DoctorDbHelper.COL_ACCOUNT_ID, id);
         values.put(DoctorDbHelper.COL_ACCOUNT_PASSWORD, password);
         return db.insert(DoctorDbHelper.TABLE_DOCTOR_ACCOUNT, null, values) != -1;
     }
 
-    // 登录验证
-    // 返回值：0=不存在，1=密码正确，2=密码错误
+    //登录验证
+    //返回值：0=不存在，1=密码正确，2=密码错误
     public int loginDoctor(String id, String password) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(DoctorDbHelper.TABLE_DOCTOR_ACCOUNT,
@@ -91,10 +86,7 @@ public class DoctorDao {
 
         return dbPassword.equals(password) ? 1 : 2;
     }
-
-    // ==============================
-    // 医生信息相关操作（doctor_info）
-    // ==============================
+    //医生信息相关操作（doctor_info）
     public boolean isInfoComplete(String account) {
         if (account == null || account.trim().isEmpty()) return false;
 

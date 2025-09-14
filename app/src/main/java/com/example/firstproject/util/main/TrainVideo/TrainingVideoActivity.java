@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import com.example.firstproject.bean.Video;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstproject.R;
+import com.example.firstproject.bean.Video;
 import com.example.firstproject.db.VideoAdapter;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class TrainingVideoActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 1. 准备所有视频（带分类）
+        //1. 准备所有视频（带分类）
         allVideos = new ArrayList<>();
         allVideos.add(new Video("肩关节拉伸", "适合术后康复",
                 "https://1378739563.vod-qcloud.com/71ccb256vodcq1378739563/3e4bbde05145403698182508222/d10ku2LEr1QA.mp4", "肩部"));
@@ -44,7 +44,7 @@ public class TrainingVideoActivity extends AppCompatActivity {
         allVideos.add(new Video("全身热身操", "运动前准备",
                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", "全身"));
 
-        // 默认先显示全部
+        //默认先显示全部
         filteredVideos = new ArrayList<>(allVideos);
 
         adapter = new VideoAdapter(filteredVideos, video -> {
@@ -55,7 +55,7 @@ public class TrainingVideoActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-        // 2. 设置分类下拉框
+        //2.设置分类下拉框
         Spinner spinner = findViewById(R.id.spinnerCategory);
         String[] categories = {"全部", "肩部", "腿部", "全身"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
@@ -63,7 +63,7 @@ public class TrainingVideoActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
-        // 3. 监听选择分类
+        //3.监听选择分类
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

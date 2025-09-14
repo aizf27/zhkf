@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.firstproject.R;
 import com.example.firstproject.bean.ChatMessage;
+import com.example.firstproject.databinding.ActivityPsychologyBinding;
 import com.example.firstproject.db.ChatAdapter;
 
 import org.json.JSONArray;
@@ -29,9 +26,7 @@ import okhttp3.Response;
 
 public class PsychologyActivity extends AppCompatActivity {
 
-    private RecyclerView rvChat;
-    private EditText etMessage;
-    private Button btnSend;
+    private ActivityPsychologyBinding binding;
     private ChatAdapter chatAdapter;
     private List<ChatMessage> chatList = new ArrayList<>();
     // 在类里
@@ -44,17 +39,14 @@ public class PsychologyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_psychology);
-
-        rvChat = findViewById(R.id.rvChat);
-        etMessage = findViewById(R.id.etMessage);
-        btnSend = findViewById(R.id.btnSend);
+        binding = ActivityPsychologyBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         chatAdapter = new ChatAdapter(chatList);
-        rvChat.setLayoutManager(new LinearLayoutManager(this));
-        rvChat.setAdapter(chatAdapter);
+        binding.rvChat.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvChat.setAdapter(chatAdapter);
 
-        btnSend.setOnClickListener(view -> {
+        binding.btnSend.setOnClickListener(view -> {
             Log.d("PsychologyActivity", "发送按钮点击");
             //Toast.makeText(this, "发送按钮点击", Toast.LENGTH_SHORT).show();
             sendMessage();
@@ -62,7 +54,7 @@ public class PsychologyActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        String msg = etMessage.getText().toString().trim();
+        String msg = binding.etMessage.getText().toString().trim();
         if(msg.isEmpty()) {
             Log.d("PsychologyActivity", "输入为空，取消发送");
             return;
@@ -82,8 +74,8 @@ public class PsychologyActivity extends AppCompatActivity {
         // 添加用户消息
         chatList.add(new ChatMessage(msg, ChatMessage.Type.USER));
         chatAdapter.notifyItemInserted(chatList.size() - 1);
-        rvChat.scrollToPosition(chatList.size() - 1);
-        etMessage.setText("");
+        binding.rvChat.scrollToPosition(chatList.size() - 1);
+        binding.etMessage.setText("");
 
         // 调用 AI
         if(USE_SIMULATION) simulateAI(msg);
@@ -98,7 +90,7 @@ public class PsychologyActivity extends AppCompatActivity {
 
             chatList.add(new ChatMessage(reply, ChatMessage.Type.AI));
             chatAdapter.notifyItemInserted(chatList.size() - 1);
-            rvChat.scrollToPosition(chatList.size() - 1);
+            binding.rvChat.scrollToPosition(chatList.size() - 1);
         }, 1000);
     }
 
@@ -176,7 +168,7 @@ public class PsychologyActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         chatList.add(new ChatMessage(aiReply, ChatMessage.Type.AI));
                         chatAdapter.notifyItemInserted(chatList.size() - 1);
-                        rvChat.scrollToPosition(chatList.size() - 1);
+                        binding.rvChat.scrollToPosition(chatList.size() - 1);
                     });
                 } else {
                     showAIError("AI 回复失败, code=" + code);
@@ -194,7 +186,7 @@ public class PsychologyActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             chatList.add(new ChatMessage(msg, ChatMessage.Type.AI));
             chatAdapter.notifyItemInserted(chatList.size() - 1);
-            rvChat.scrollToPosition(chatList.size() - 1);
+            binding.rvChat.scrollToPosition(chatList.size() - 1);
         });
     }
 }

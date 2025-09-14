@@ -25,7 +25,7 @@ private ActivityPtMainBinding binding;
 
         binding.btnViewInfo.setOnClickListener(view -> {
             Intent intent = new Intent(this, PtInfoActivity.class);
-            // 把 account 传过去
+            //把 account 传过去
             String account = getIntent().getStringExtra("account");
             intent.putExtra("mode","patient");
             intent.putExtra("account", account);
